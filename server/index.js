@@ -58,6 +58,19 @@ app.get("/api/:address/history", async (req, res) => {
   }
 });
 
+app.get("/api/gas-price", async (req, res) => {
+  try {
+    const response = await axios.get("https://api.1inch.dev/gas-price/v1.4/1", {
+      headers: {
+        Authorization: `Bearer ${process.env.INCH_APIKEY}`,
+      },
+    });
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching gas price]:", error);
+    res.status(500).json({ message: "Error fetching gas prices" });
+  }
+});
 
 app.get('/', (req, res) => res.send('It Work'));
 
