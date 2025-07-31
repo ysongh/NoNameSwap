@@ -58,6 +58,32 @@ app.get("/api/:address/history", async (req, res) => {
   }
 });
 
+
+
+app.get("/api/fetchNfts/:address", async (req, res) => {
+  const address = req.params.address;
+  const limit = req.query.limit || 50;
+  const offset = req.query.offset || 0;
+  const chainIds = req.query.chainIds || 1;
+
+  const BASE_URL = "https://api.1inch.dev/nft/v2/byaddress";
+
+  try {
+    const constructedUrl = `${BASE_URL}?address=${address}&chainIds=${chainIds}&limit=${limit}&offset=${offset}`;
+
+    const response = await axios.get(constructedUrl, {
+      headers: {
+        Authorization: `Bearer ${process.env.INCH_APIKEY}`
+      }
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Axios Error: ", error.response);
+    res.status(500).json({ error: "Failed to fetch NFTs" });
+  }
+});
+
 app.get("/api/gas-price", async (req, res) => {
   try {
     const response = await axios.get("https://api.1inch.dev/gas-price/v1.4/1", {
