@@ -84,6 +84,29 @@ app.get("/api/fetchNfts/:address", async (req, res) => {
   }
 });
 
+app.get("/api/:tokeAddress/prices/:interval", async (req, res) => {
+  const { tokeAddress, interval } = req.params;
+
+  const BASE_URL = "https://api.1inch.dev/token-details/v1.0/charts/interval";
+  const CHAIN_ID = 1; // Eth
+
+  try {
+    const constructedUrl = `${BASE_URL}/${CHAIN_ID}/${tokeAddress}?interval=${interval}`;
+
+    const response = await axios.get(constructedUrl, {
+      headers: {
+        Authorization: `Bearer ${process.env.INCH_APIKEY}`,
+      },
+    });
+
+    res.json(response.data.d);
+  } catch (error) {
+    console.error("Axios Error: ", error.response);
+    res.status(500).json({ error: "Failed to fetch token price by interval" });
+  }
+});
+
+
 app.get("/api/gas-price", async (req, res) => {
   try {
     const response = await axios.get("https://api.1inch.dev/gas-price/v1.4/1", {
