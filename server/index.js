@@ -36,6 +36,33 @@ app.get('/getBalance/:walletaddress', async (req, res) => {
   }
 });
 
+app.get('/gettokendetail/:tokenaddress', async (req, res) => {
+  const tokenaddress = req.params.tokenaddress;
+
+  const url =
+    "https://api.1inch.dev/token-details/v1.0/details/1/" + tokenaddress;
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${process.env.INCH_APIKEY}` ,
+    },
+    params: {
+      provider: "coinmarketcap",
+    },
+    paramsSerializer: {
+      indexes: null,
+    },
+  };
+
+  try {
+    const response = await axios.get(url, config);
+    res.json({ data: response.data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Endpoint to fetch wallet transaction history
 app.get("/api/:address/history", async (req, res) => {
   const address = req.params.address;
