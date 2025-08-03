@@ -12,7 +12,7 @@ const NFTDashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [selectedChain, setSelectedChain] = useState('1');
-  const [viewMode, setViewMode] = useState('grid');
+  const [viewMode, setViewMode] = useState('list');
   const [nextToken, setNextToken] = useState('');
   const [hasMore, setHasMore] = useState(true);
   

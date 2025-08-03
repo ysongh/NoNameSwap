@@ -86,7 +86,7 @@ function TokenDetail() {
 
   return (
     <div>
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-6xl mx-auto mb-3 mt-3">
         {/* Main Token Info */}
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="px-6 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
