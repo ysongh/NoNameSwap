@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Search, Wallet, RefreshCw, AlertCircle, ExternalLink } from 'lucide-react';
 
 const TokenBalanceDashboard = () => {
+  const navigate = useNavigate();
+
   const [walletAddress, setWalletAddress] = useState('');
   const [balanceData, setBalanceData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -180,7 +183,7 @@ const TokenBalanceDashboard = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-6 py-4 whitespace-nowrap" onClick={() => navigate(`/token/${address}`)}>
                             <code className="text-xs font-mono text-gray-600">
                               {shortenAddress(address)}
                             </code>
