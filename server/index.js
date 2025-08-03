@@ -56,7 +56,7 @@ app.get('/gettokendetail/:tokenaddress', async (req, res) => {
 
   try {
     const response = await axios.get(url, config);
-    res.json({ data: response.data });
+    res.json({ data: response.data, assets: response.data.assets });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: error.message });
