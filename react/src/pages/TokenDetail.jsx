@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { RefreshCw, AlertCircle, ExternalLink } from 'lucide-react';
+import { RefreshCw, AlertCircle, ExternalLink, Globe, Link as LinkIcon } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function TokenDetail() {
@@ -82,6 +82,24 @@ function TokenDetail() {
       );
     }
     return null;
+  };
+
+  const renderLinkIcon = (type) => {
+    switch (type?.toLowerCase()) {
+      case 'website':
+      case 'homepage':
+        return <Globe className="h-4 w-4" />;
+      case 'twitter':
+        return <span className="text-blue-400">𝕏</span>;
+      case 'telegram':
+        return <span className="text-blue-500">📱</span>;
+      case 'discord':
+        return <span className="text-indigo-500">💬</span>;
+      case 'github':
+        return <span className="text-gray-800">⚡</span>;
+      default:
+        return <LinkIcon className="h-4 w-4" />;
+    }
   };
 
   return (
