@@ -148,6 +148,32 @@ app.get("/api/gas-price", async (req, res) => {
   }
 });
 
+app.get('/getdomains/:name', async (req, res) => {
+  const name = req.params.name;
+
+  const axios = require("axios");
+
+  const url = "https://api.1inch.dev/domains/v2.0/lookup";
+
+  const config = {
+    headers: undefined,
+    params: {
+      name: name,
+    },
+    paramsSerializer: {
+      indexes: null,
+    },
+  };
+
+  try {
+    const response = await axios.get(url, config);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/', (req, res) => res.send('It Work'));
 
 const port = process.env.PORT || 4000;
