@@ -174,6 +174,32 @@ app.get('/getdomains/:name', async (req, res) => {
   }
 });
 
+app.get('/reverselookup/:address', async (req, res) => {
+  const address = req.params.address;
+
+  const axios = require("axios");
+
+  const url = "https://api.1inch.dev/domains/v2.0/reverse-lookup";
+
+  const config = {
+    headers: undefined,
+    params: {
+      address: address,
+    },
+    paramsSerializer: {
+      indexes: null,
+    },
+  };
+
+  try {
+    const response = await axios.get(url, config);
+    res.json(response.data);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.get('/', (req, res) => res.send('It Work'));
 
 const port = process.env.PORT || 4000;
